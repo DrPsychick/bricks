@@ -214,7 +214,7 @@ func TestHandlerWithLogSink(t *testing.T) {
 		_, err = client.Do(r0)
 		assert.NoError(t, err, `request to "/succeed" should not error`)
 
-		r1, err := http.NewRequest("GET", "http://localhost/fail", nil)
+		r1, err := http.NewRequest("GET", "http://unknown/fail", nil)
 		assert.NoError(t, err, `failed creating request to "/fail"`)
 
 		r1 = r1.WithContext(r.Context())
@@ -258,7 +258,7 @@ func TestHandlerWithLogSink(t *testing.T) {
 	assert.NotContains(t, string(sink2LogLines[0]), "ONLY FOR SINK1", "unexpected log line found")
 
 	assert.Contains(t, string(sink2LogLines[0]), "https://www.pace.car/de", "missing log line")
-	assert.Contains(t, string(sink2LogLines[1]), "http://localhost/fail", "missing log line")
+	assert.Contains(t, string(sink2LogLines[1]), "http://unknown/fail", "missing log line")
 
 	assert.Contains(t, string(sink2LogLines[2]), "sentry:category", "missing log line")
 	assert.Contains(t, string(sink2LogLines[2]), "redis", "missing log line")

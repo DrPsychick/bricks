@@ -62,5 +62,8 @@ integration:
 testserver:
 	docker-compose up
 
+testserver-destroy:
+	docker-compose down -v
+
 ci:
 	$(GO) test $(GO_TEST_FLAGS) -covermode=atomic -coverprofile=coverage.out ./...
